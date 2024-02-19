@@ -91,6 +91,9 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        UIManager.Instance.score = m_Points;
+        UIManager.Instance.UpdateBestScore();
+        UIManager.Instance.SaveScore();
         m_GameOver = true;
         UIManager.Instance.setGameOverActive();
     }

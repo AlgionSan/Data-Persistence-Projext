@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -27,7 +28,7 @@ public class UIManager : MonoBehaviour
 
     public InputField nameInput;
 
-    private int score = 0;
+    public int score = 0;
 
     private void Awake()
     { 
@@ -41,20 +42,16 @@ public class UIManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+
+
+        LoadScore();
         //im not sure why i put this here on awake hmmm...
         bestScoreMenu.text = "Best Score : " + playerName + " : " + score;
         bestScoreMain.text = "Best Score : " + playerName + " : " + score;
 
-
-
     }
 
-    void Update()
-    {
 
-    
-    
-    }
 
     public void setGameOverActive()
     {
@@ -89,7 +86,12 @@ public class UIManager : MonoBehaviour
         bestScoreMain.text = "Best Score : " + playerName + " : " + score;
 
     }
-    
+
+    public void UpdateBestScore()
+    {
+        bestScoreMain.text = "Best Score : " + playerName + " : " + score;
+
+    }
 
     public void ExitGame()
     {
@@ -110,8 +112,40 @@ public class UIManager : MonoBehaviour
     [System.Serializable]
     class SaveData
     {
-        
+  
+        public int score;
+        public string name;
+
     
+    }
+
+    public void SaveScore()
+    {
+        SaveData data = new SaveData();
+        data.score = score;
+
+        string json = JsonUtility.ToJson(data);
+
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+
+
+
+    }
+
+    public void LoadScore()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            score = data.score;
+        
+        }
+
+
     }
 
 
