@@ -12,7 +12,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     private Text ScoreText;
-    private GameObject GameOverText;
+   // private GameObject GameOverText;
 
     
     private bool m_Started = false;
@@ -28,7 +28,7 @@ public class MainManager : MonoBehaviour
     {
         createBricks();
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-        GameOverText = GameObject.FindWithTag("GameOver");
+        //GameOverText = GameObject.FindWithTag("GameOver");
 
     
 
