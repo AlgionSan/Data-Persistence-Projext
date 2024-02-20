@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
 
     public InputField nameInput;
 
+
+
     public int score = 0;
 
     private void Awake()
@@ -42,6 +44,7 @@ public class UIManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        
 
 
         LoadScore();
@@ -123,6 +126,7 @@ public class UIManager : MonoBehaviour
     {
         SaveData data = new SaveData();
         data.score = score;
+        data.name = playerName;
 
         string json = JsonUtility.ToJson(data);
 
